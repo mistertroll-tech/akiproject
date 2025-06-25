@@ -103,15 +103,15 @@
             align-items: center;
         }
 
-        .logo-img {
-            height: 40px;
-            width: auto;
-            transition: var(--transition);
-        }
+.logo-aki {
+    max-width: 200px; /* batas lebar maksimum */
+    height: auto;
+    transition: var(--transition);
+}
 
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
+.logo-aki:hover {
+    transform: scale(1.05);
+}
 
         .nav-menu {
             display: flex;
@@ -360,7 +360,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="/index.html" class="logo">
-                <img src="/assets/logos/aki-logo.png" alt="AKI Logo" class="logo-img">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-aki">
             </a>
             <button class="hamburger" id="hamburger">☰</button>
             <ul class="nav-menu" id="nav-menu">
