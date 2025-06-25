@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "unuc",
+    "namaKampus": "Universitas Nahdlatul Ulama Cirebon",
+    "logo": "unuc.png",
+    "namaMeme": "unuc.shitmeme",
+    "deskripsi": "Akun Shitpost Dari Universitas Nahdlatul Ulama Cirebon, Alat Menfess Mahasiswa Terdiskriminasi.",
+    "motto": "Tuanku ya Mahasiswa, Admin Hanyalah Mandat.",
+    "tombol": [
+      { "label": "Instagram", "link": "https://www.instagram.com/unuc.shitmeme" },
+      { "label": "Donate", "link": "https://saweria.co/unucshitpost" }
+    ]
+  }
+]
