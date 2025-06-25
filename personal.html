@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Kampus - AKI</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-logo.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/personal.html">Personal</a></li>
+                <li><a href="/contact.html">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Personal Kampus</h1>
+            <p>Daftar akun meme kampus anggota Alianshitposting Kampus Indonesia</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="kampus-grid" id="kampusGrid">
+            <!-- Data akan diisi oleh JavaScript -->
+            <div class="loading">Memuat data kampus...</div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/data/kampus.json')
+                .then(response => response.json())
+                .then(data => {
+                    const grid = document.getElementById('kampusGrid');
+                    grid.innerHTML = '';
+                    
+                    data.forEach(kampus => {
+                        const card = document.createElement('div');
+                        card.className = 'kampus-card';
+                        card.innerHTML = `
+                            <div class="kampus-logo">
+                                <img src="/assets/logos/${kampus.logo}" alt="${kampus.namaKampus}" 
+                                     onerror="this.onerror=null; this.src='/assets/logos/default-logo.png'">
+                            </div>
+                            <h3>${kampus.namaKampus}</h3>
+                            <p class="meme-name">${kampus.namaMeme}</p>
+                            <a href="/kampus.html?slug=${kampus.slug}" class="btn">Lihat Profil</a>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading kampus data:', error);
+                    document.getElementById('kampusGrid').innerHTML = 
+                        '<p class="error">Gagal memuat data kampus. Silakan coba lagi nanti.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Menfess - AKI</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-logo.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/personal.html">Personal</a></li>
+                <li><a href="/contact.html">Formulir</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Formulir Menfess Kampus</h1>
+            <p>Kirim menfess atau konten untuk kampus tujuan</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Formulir Menfess -->
+        <form id="menfessForm" class="contact-form">
+            <div class="form-group">
+                <label for="targetKampus">Kampus Tujuan</label>
+                <select id="targetKampus" name="targetKampus" required>
+                    <option value="">Pilih Kampus</option>
+                    <!-- Options akan diisi oleh JavaScript -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="menfessContent">Isi Menfess</label>
+                <textarea id="menfessContent" name="menfessContent" rows="6" required maxlength="500"></textarea>
+                <small class="char-count"><span id="remainingChars">500</span> karakter tersisa</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="menfessFile">Lampiran Foto (Opsional)</label>
+                <input type="file" id="menfessFile" name="menfessFile" accept="image/*" max-size="2048">
+                <small>Maksimal 2MB (format: JPG, PNG)</small>
+                <div id="fileError" class="error-text hidden"></div>
+                <div id="filePreview" class="file-preview hidden"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="senderType">Anda sebagai:</label>
+                <select id="senderType" name="senderType" required>
+                    <option value="">Pilih identitas</option>
+                    <option value="mahasiswa">Mahasiswa</option>
+                    <option value="alumni">Alumni</option>
+                    <option value="dosen">Dosen</option>
+                    <option value="anonymous" selected>Anonymous</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="identityField" style="display: none;">
+                <label for="senderIdentity">Nama/NIM (opsional)</label>
+                <input type="text" id="senderIdentity" name="senderIdentity">
+            </div>
+            
+            <button type="submit" class="btn">Kirim Menfess</button>
+        </form>
+        
+        <div id="formMessage" class="form-message hidden"></div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elemen DOM
+            const menfessForm = document.getElementById('menfessForm');
+            const formMessage = document.getElementById('formMessage');
+            const menfessContent = document.getElementById('menfessContent');
+            const remainingChars = document.getElementById('remainingChars');
+            const senderType = document.getElementById('senderType');
+            const identityField = document.getElementById('identityField');
+            const menfessFile = document.getElementById('menfessFile');
+            const fileError = document.getElementById('fileError');
+            const filePreview = document.getElementById('filePreview');
+            
+            // Load data kampus
+            loadKampusOptions();
+            
+            // Karakter counter untuk menfess
+            menfessContent.addEventListener('input', function() {
+                const remaining = 500 - this.value.length;
+                remainingChars.textContent = remaining;
+            });
+            
+            // Tampilkan field identitas jika bukan anonymous
+            senderType.addEventListener('change', function() {
+                identityField.style.display = this.value === 'anonymous' ? 'none' : 'block';
+            });
+            
+            // Validasi file upload
+            menfessFile.addEventListener('change', function() {
+                const file = this.files[0];
+                fileError.classList.add('hidden');
+                filePreview.classList.add('hidden');
+                
+                if (file) {
+                    // Validasi ukuran file (2MB)
+                    if (file.size > 2 * 1024 * 1024) {
+                        fileError.textContent = 'Ukuran file melebihi 2MB';
+                        fileError.classList.remove('hidden');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Validasi tipe file
+                    const validTypes = ['image/jpeg', 'image/png'];
+                    if (!validTypes.includes(file.type)) {
+                        fileError.textContent = 'Format file tidak didukung. Gunakan JPG atau PNG';
+                        fileError.classList.remove('hidden');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Tampilkan preview gambar
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        filePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 200px; max-height: 200px; margin-top: 10px;">`;
+                        filePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Load data kampus untuk form menfess
+            function loadKampusOptions() {
+                fetch('/data/kampus.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const select = document.getElementById('targetKampus');
+                        select.innerHTML = '<option value="">Pilih Kampus</option>';
+                        
+                        data.forEach(kampus => {
+                            const option = document.createElement('option');
+                            option.value = kampus.slug;
+                            option.textContent = kampus.namaKampus;
+                            select.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading kampus data:', error);
+                    });
+            }
+            
+            // Submit form menfess
+            menfessForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const kampusSelect = document.getElementById('targetKampus');
+                const kampusName = kampusSelect.options[kampusSelect.selectedIndex].text;
+                const content = document.getElementById('menfessContent').value;
+                const senderTypeValue = document.getElementById('senderType').value;
+                const senderIdentity = document.getElementById('senderIdentity').value || 'Anonymous';
+                const file = menfessFile.files[0];
+                
+                // Format pesan untuk Telegram
+                let message = `📢 *Menfess Baru untuk ${kampusName}* 📢\n\n`;
+                message += `💬 *Isi Menfess:*\n${content}\n\n`;
+                message += `👤 *Dikirim oleh:* ${senderTypeValue}`;
+                if (senderTypeValue !== 'anonymous') {
+                    message += ` (${senderIdentity})`;
+                }
+                
+                // Kirim ke Telegram
+                sendToTelegram(message, file);
+            });
+            
+            // Fungsi untuk mengirim ke Telegram
+            function sendToTelegram(message, file) {
+                const botToken = '7689764388:AAGJ8yYZh_TZ4wkki_DSzv9YhnNO9igKTqo'; // Ganti dengan token bot Anda
+                const chatId = '-1002751329542'; // Ganti dengan chat ID tujuan
+                
+                // Jika ada file, gunakan API sendPhoto atau sendDocument
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('caption', message);
+                    formData.append('parse_mode', 'Markdown');
+                    
+                    // Tentukan apakah akan mengirim sebagai photo atau document
+                    const isImage = file.type.startsWith('image/');
+                    const apiMethod = isImage ? 'sendPhoto' : 'sendDocument';
+                    formData.append(isImage ? 'photo' : 'document', file);
+                    
+                    fetch(`https://api.telegram.org/bot${botToken}/${apiMethod}`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showSuccessMessage('Menfess dan foto berhasil dikirim!');
+                            menfessForm.reset();
+                            remainingChars.textContent = '500';
+                            filePreview.classList.add('hidden');
+                        } else {
+                            throw new Error(data.description || 'Gagal mengirim menfess');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showErrorMessage('Terjadi kesalahan saat mengirim menfess. Silakan coba lagi nanti.');
+                    });
+                } else {
+                    // Jika tidak ada file, gunakan API sendMessage biasa
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showSuccessMessage('Menfess berhasil dikirim!');
+                            menfessForm.reset();
+                            remainingChars.textContent = '500';
+                        } else {
+                            throw new Error(data.description || 'Gagal mengirim menfess');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showErrorMessage('Terjadi kesalahan saat mengirim menfess. Silakan coba lagi nanti.');
+                    });
+                }
+            }
+            
+            function showSuccessMessage(msg) {
+                formMessage.textContent = msg;
+                formMessage.className = 'form-message success';
+                formMessage.classList.remove('hidden');
+                setTimeout(() => formMessage.classList.add('hidden'), 5000);
+            }
+            
+            function showErrorMessage(msg) {
+                formMessage.textContent = msg;
+                formMessage.className = 'form-message error';
+                formMessage.classList.remove('hidden');
+                setTimeout(() => formMessage.classList.add('hidden'), 5000);
+            }
+        });
+    </script>
+</body>
+</html>
