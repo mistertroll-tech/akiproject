@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${kampus.namaKampus} - Profil Kampus AKI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/assets/logos/aki-favicon.png" type="image/png">
+    <style>
+        :root {
+            --primary: #FF4757;
+            --primary-hover: #FF6B81;
+            --secondary: #2F3542;
+            --accent: #70A1FF;
+            --text: #F1F2F6;
+            --text-secondary: #BDC3C7;
+            --bg: #1E272E;
+            --bg-secondary: #2F3542;
+            --card-bg: #2F3542;
+            --border: #3D3D3D;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --shadow-hover: 0 8px 30px rgba(255, 71, 87, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.75rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text);
+            transition: var(--transition);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Kampus Profile */
+        .kampus-profile {
+            margin: 3rem 0;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .kampus-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .kampus-logo-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .kampus-logo-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .kampus-logo-large:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .kampus-logo-large img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .kampus-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .meme-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .motto {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .motto::before, .motto::after {
+            content: '"';
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: absolute;
+            opacity: 0.7;
+        }
+
+        .motto::before {
+            left: 0;
+            top: -5px;
+        }
+
+        .motto::after {
+            right: 0;
+            bottom: -15px;
+        }
+
+        .kampus-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .kampus-description, .kampus-filosofi {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .kampus-description:hover, .kampus-filosofi:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .description-content {
+            line-height: 1.8;
+        }
+
+        /* Action Buttons */
+        .kampus-actions {
+            margin-bottom: 3rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn:not(.secondary) {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:not(.secondary):hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+        }
+
+        .secondary {
+            background-color: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Back Link */
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary);
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Error Message */
+        .error-message {
+            text-align: center;
+            padding: 3rem;
+            color: var(--primary);
+        }
+
+        .error-message h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .error-message a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .kampus-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .kampus-logo-container {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 5rem 0;
+                transition: var(--transition);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .kampus-title {
+                font-size: 1.8rem;
+            }
+
+            .meme-name {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .kampus-logo-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .kampus-title {
+                font-size: 1.6rem;
+            }
+
+            .motto {
+                font-size: 1rem;
+                padding: 0 1.5rem;
+            }
+
+            .kampus-description, .kampus-filosofi {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/personal.html">Daftar Kampus</a></li>
+                <li><a href="/contact.html">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" id="kampusProfile">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Memuat profil kampus...</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Animate hamburger lines
+                if (this.classList.contains('active')) {
+                    this.querySelectorAll('.hamburger-line').forEach((line, index) => {
+                        if (index === 0) line.style.transform = 'translateY(8px) rotate(45deg)';
+                        if (index === 1) line.style.opacity = '0';
+                        if (index === 2) line.style.transform = 'translateY(-8px) rotate(-45deg)';
+                    });
+                } else {
+                    this.querySelectorAll('.hamburger-line').forEach(line => {
+                        line.style.transform = '';
+                        line.style.opacity = '';
+                    });
+                }
+            });
+            
+            // Load kampus data
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            
+            if (!slug) {
+                showError('Parameter kampus tidak valid');
+                return;
+            }
+            
+            loadKampusProfile(slug);
+        });
+
+        async function loadKampusProfile(slug) {
+            try {
+                const response = await fetch('/data/kampus.json');
+                if (!response.ok) throw new Error('Gagal memuat data');
+                
+                const data = await response.json();
+                const kampus = data.find(k => k.slug === slug);
+                
+                if (!kampus) {
+                    showError('Kampus tidak ditemukan');
+                    return;
+                }
+                
+                renderKampusProfile(kampus);
+                
+                // Update page title
+                document.title = `${kampus.namaKampus} - Profil Kampus AKI`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Terjadi kesalahan saat memuat data');
+            }
+        }
+
+        function renderKampusProfile(kampus) {
+            const profile = document.getElementById('kampusProfile');
+            
+            profile.innerHTML = `
+                <article class="kampus-profile">
+                    <header class="kampus-header">
+                        <div class="kampus-logo-container">
+                            <div class="kampus-logo-large">
+                                <img src="/assets/logos/${kampus.logo}" alt="Logo ${kampus.namaKampus}" loading="lazy">
+                            </div>
+                            ${kampus.verified ? '<span class="verified-badge"><i class="fas fa-check"></i> Terverifikasi</span>' : ''}
+                        </div>
+                        <div class="kampus-info">
+                            <h1 class="kampus-title">${kampus.namaKampus}</h1>
+                            <h2 class="meme-name">@${kampus.namaMeme}</h2>
+                            <p class="motto">${kampus.motto}</p>
+                            <div class="kampus-meta">
+                                ${kampus.akunInstagram ? `
+                                <a href="https://instagram.com/${kampus.akunInstagram}" class="social-link" target="_blank">
+                                    <i class="fab fa-instagram"></i> @${kampus.akunInstagram}
+                                </a>
+                                ` : ''}
+                                ${kampus.website ? `
+                                <a href="${kampus.website}" class="social-link" target="_blank">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <section class="kampus-description">
+                        <h2 class="section-title">Deskripsi</h2>
+                        <div class="description-content">
+                            <p>${kampus.deskripsi}</p>
+                        </div>
+                    </section>
+                    
+                    ${kampus.filosofi ? `
+                    <section class="kampus-filosofi">
+                        <h2 class="section-title">Filosofi</h2>
+                        <p>${kampus.filosofi}</p>
+                    </section>
+                    ` : ''}
+                    
+                    ${kampus.tombol && kampus.tombol.length > 0 ? `
+                    <section class="kampus-actions">
+                        <h2 class="section-title">Tautan</h2>
+                        <div class="action-buttons">
+                            ${kampus.tombol.map(btn => `
+                            <a href="${btn.link}" class="btn ${btn.primary ? '' : 'secondary'}" target="_blank" rel="noopener noreferrer">
+                                ${btn.icon ? `<i class="${btn.icon}"></i>` : ''}
+                                ${btn.label}
+                            </a>
+                            `).join('')}
+                        </div>
+                    </section>
+                    ` : ''}
+                    
+                    <div class="back-link">
+                        <a href="/personal.html" class="btn secondary back-btn">
+                            <i class="fas fa-arrow-left"></i> Kembali ke Daftar Kampus
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        function showError(message) {
+            const profile = document.getElementById('kampusProfile');
+            profile.innerHTML = `
+                <div class="error-message">
+                    <h2>${message}</h2>
+                    <p>Silakan <a href="/personal.html">kembali ke daftar kampus</a> atau coba lagi nanti.</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

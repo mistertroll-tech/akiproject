@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Menfess - AKI</title>
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff3d3d;
+            --secondary: #000;
+            --text: #fff;
+            --text-secondary: #aaa;
+            --bg: #111;
+            --bg-secondary: #222;
+            --border: #333;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('/assets/logos/aki-id.png') center/cover no-repeat;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero .container {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group select,
+        .form-group textarea,
+        .form-group input[type="text"],
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .char-count {
+            display: block;
+            text-align: right;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .file-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: var(--border-radius);
+        }
+
+        .error-text {
+            color: var(--primary);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: rgba(40, 167, 69, 0.15);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #28a745;
+        }
+
+        .form-message.error {
+            background-color: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .contact-form {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/personal.html">Daftar Kampus</a></li>
+                <li><a href="/contact.html">Formulir</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Formulir Menfess Kampus</h1>
+            <p>Kirim menfess atau konten untuk kampus tujuan</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="menfessForm" class="contact-form">
+            <div class="form-group">
+                <label for="targetKampus">Kampus Tujuan</label>
+                <select id="targetKampus" name="targetKampus" required>
+                    <option value="">Pilih Kampus</option>
+                    <!-- Options akan diisi oleh JavaScript -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="menfessContent">Isi Menfess</label>
+                <textarea id="menfessContent" name="menfessContent" rows="6" required maxlength="500"></textarea>
+                <small class="char-count"><span id="remainingChars">500</span> karakter tersisa</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="menfessFile">Lampiran Foto (Opsional)</label>
+                <input type="file" id="menfessFile" name="menfessFile" accept="image/*">
+                <small>Maksimal 2MB (format: JPG, PNG)</small>
+                <div id="fileError" class="error-text hidden"></div>
+                <div id="filePreview" class="file-preview hidden"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="senderType">Anda sebagai:</label>
+                <select id="senderType" name="senderType" required>
+                    <option value="">Pilih identitas</option>
+                    <option value="mahasiswa">Mahasiswa</option>
+                    <option value="alumni">Alumni</option>
+                    <option value="dosen">Dosen</option>
+                    <option value="anonymous" selected>Anonymous</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="identityField" style="display: none;">
+                <label for="senderIdentity">Nama/NIM (opsional)</label>
+                <input type="text" id="senderIdentity" name="senderIdentity">
+            </div>
+            
+            <button type="submit" class="btn">Kirim Menfess</button>
+        </form>
+        
+        <div id="formMessage" class="form-message hidden"></div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+            
+            // Form elements
+            const menfessForm = document.getElementById('menfessForm');
+            const formMessage = document.getElementById('formMessage');
+            const menfessContent = document.getElementById('menfessContent');
+            const remainingChars = document.getElementById('remainingChars');
+            const senderType = document.getElementById('senderType');
+            const identityField = document.getElementById('identityField');
+            const menfessFile = document.getElementById('menfessFile');
+            const fileError = document.getElementById('fileError');
+            const filePreview = document.getElementById('filePreview');
+            
+            // Load kampus options
+            loadKampusOptions();
+            
+            // Character counter
+            menfessContent.addEventListener('input', function() {
+                const remaining = 500 - this.value.length;
+                remainingChars.textContent = remaining;
+            });
+            
+            // Show/hide identity field
+            senderType.addEventListener('change', function() {
+                identityField.style.display = this.value === 'anonymous' ? 'none' : 'block';
+            });
+            
+            // File validation and preview
+            menfessFile.addEventListener('change', function() {
+                const file = this.files[0];
+                fileError.classList.add('hidden');
+                
+                if (file) {
+                    // Validate file size (2MB)
+                    if (file.size > 2 * 1024 * 1024) {
+                        fileError.textContent = 'Ukuran file melebihi 2MB';
+                        fileError.classList.remove('hidden');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Validate file type
+                    const validTypes = ['image/jpeg', 'image/png'];
+                    if (!validTypes.includes(file.type)) {
+                        fileError.textContent = 'Format file tidak didukung. Gunakan JPG atau PNG';
+                        fileError.classList.remove('hidden');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Show preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        filePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                        filePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    filePreview.classList.add('hidden');
+                }
+            });
+            
+            // Form submission
+            menfessForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const kampusSelect = document.getElementById('targetKampus');
+                const kampusName = kampusSelect.options[kampusSelect.selectedIndex].text;
+                
+                // Format message for Telegram
+                let message = `📢 *Menfess Baru untuk ${kampusName}* 📢\n\n`;
+                message += `💬 *Isi Menfess:*\n${formData.get('menfessContent')}\n\n`;
+                message += `👤 *Dikirim oleh:* ${formData.get('senderType')}`;
+                
+                if (formData.get('senderType') !== 'anonymous' && formData.get('senderIdentity')) {
+                    message += ` (${formData.get('senderIdentity')})`;
+                }
+                
+                // Send to Telegram
+                sendToTelegram(message, formData.get('menfessFile'));
+            });
+            
+            // Load kampus options from JSON
+            function loadKampusOptions() {
+                fetch('./data/kampus.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Gagal memuat data kampus');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const select = document.getElementById('targetKampus');
+                        data.forEach(kampus => {
+                            const option = document.createElement('option');
+                            option.value = kampus.slug;
+                            option.textContent = kampus.namaKampus;
+                            select.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        const select = document.getElementById('targetKampus');
+                        const option = document.createElement('option');
+                        option.textContent = 'Gagal memuat daftar kampus';
+                        select.appendChild(option);
+                        select.disabled = true;
+                    });
+            }
+            
+            // Send to Telegram
+            function sendToTelegram(message, file) {
+                const botToken = '7689764388:AAGJ8yYZh_TZ4wkki_DSzv9YhnNO9igKTqo';
+                const chatId = '-1002751329542';
+                const submitBtn = menfessForm.querySelector('button[type="submit"]');
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Mengirim...';
+                
+                if (file) {
+                    // Send with photo
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('photo', file);
+                    formData.append('caption', message);
+                    formData.append('parse_mode', 'Markdown');
+                    
+                    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showMessage('Menfess berhasil dikirim!', 'success');
+                            menfessForm.reset();
+                            filePreview.classList.add('hidden');
+                            remainingChars.textContent = '500';
+                        } else {
+                            throw new Error(data.description || 'Gagal mengirim menfess');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showMessage(`Gagal mengirim: ${error.message}`, 'error');
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Kirim Menfess';
+                    });
+                } else {
+                    // Send text only
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showMessage('Menfess berhasil dikirim!', 'success');
+                            menfessForm.reset();
+                            remainingChars.textContent = '500';
+                        } else {
+                            throw new Error(data.description || 'Gagal mengirim menfess');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showMessage(`Gagal mengirim: ${error.message}`, 'error');
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Kirim Menfess';
+                    });
+                }
+            }
+            
+            function showMessage(text, type) {
+                formMessage.textContent = text;
+                formMessage.className = `form-message ${type}`;
+                formMessage.classList.remove('hidden');
+                
+                // Scroll to message
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
