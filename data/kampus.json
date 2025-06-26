@@ -11,4 +11,16 @@
       { "label": "Donate", "link": "https://saweria.co/unucshitpost" }
     ]
   }
+  {
+  "slug": "memeyuem",
+  "namaKampus": "Universitas Negeri Malang",
+  "logo": "logo-memeyuem.png",
+  "namaMeme": "meme.yuem",
+  "deskripsi": "Akun meme yuem adalah akun meme milik universitas negeri malang yang dinaungi oleh manusia manusia independen tak gentar senggol bacok",
+  "motto": "UM Mendidik & Mendadak",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/meme.yuem" },
+    { "label": "Donate", "link": "https://saweria.co/memeyuem/" }
+  ]
+}
 ]
