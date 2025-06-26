@@ -118,7 +118,23 @@
             text-align: center;
             margin-bottom: 2rem;
         }
-
+.hero-banner h1 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.75);
+    text-transform: uppercase;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    margin-top: 1rem;
+}
+.slogan {
+    color: #e0e0e0;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.7rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    letter-spacing: 0.3px;
+}
         .logo-aki {
             max-width: 200px;
             height: auto;
@@ -322,11 +338,14 @@
     </nav>
 
     <div class="hero-banner">
-        <div>
-            <img src="/assets/logos/aki-id.png" alt="AKI Banner" class="logo-aki">
-            <h1>Alianshitposting Kampus Indonesia</h1>
-        </div>
+    <div>
+        <img src="/assets/logos/aki-id.png" alt="AKI Banner" class="logo-aki">
+        <h1>Alianshitposting Kampus Indonesia</h1>
+        <p class="slogan">"We walk the talk
+
+Not only talk the talk"</p>
     </div>
+</div>
 
     <main class="container">
         <section class="filosofi">
@@ -334,7 +353,29 @@
             <div class="logo-display">
                 <img src="/assets/logos/aki-logo.png" alt="AKI Logo" class="logo-aki">
             </div>
-            <p>Logo AKI menggambarkan semangat persatuan akun meme kampus dengan estetika yang khas. Huruf の (no) dalam bahasa Jepang melambangkan absurditas dan sifat internet yang tanpa batas.</p>
+           <p>Logo ini dibuat dengan vibes Akatsuki dari Naruto—kelompok yang isinya orang-orang beda aliran tapi punya satu misi: bikin perubahan. Mirip kayak kita-kita di kampus yang suka ngelawan sistem... lewat meme.</p>
+
+<p><strong>1. Tulisan “AKI” – Tegas, Tajam, tapi Tetep Santuy</strong><br>
+Font-nya galak: Biar kelihatan kayak orang yang udah kenyang tugas, rapat sampe tengah malam, tapi masih bisa ngomong “santai aja bro, hidup itu pilihan.”</p>
+
+<p><em>Putih dengan Outline Merah:</em><br>
+Putih: Kayak anak BEM yang sok bijak di Twitter.<br>
+Merah: Semangat anak teknik waktu demo, walau tugas belum kelar.</p>
+
+<p><strong>2. Awan Merah Akatsuki – Simbol Perlawanan Anak Kampus</strong><br>
+Awan merah itu bukan cuma keren, tapi juga tanda kita bosen sama budaya kampus yang gitu-gitu aja. Kita datang bukan buat ngikut sistem, tapi buat ngelawak sambil nyindir.<br>
+Outline putihnya? Simbol dari “gua masih punya batas moral kok, bro”.</p>
+
+<p><strong>3. Huruf Jepang “の” – Karena Latin Aja Gak Cukup</strong><br>
+Huruf “の” tuh semacam bumbu Jepang di Indomie. Gak ngaruh banyak, tapi bikin estetik.<br>
+Secara filosofi? Bisa dibilang “ini punya gua”—karena akun ini ya punya kita semua yang lagi survive di dunia kampus dengan cara paling waras: nge-meme.</p>
+
+<p><strong>4. Latar Hitam – Deep dan Dingin Seperti Hati yang Pernah Tersakiti</strong><br>
+Hitam itu elegan, misterius, dan yang paling penting: enak buat jadi background meme.<br>
+Warnanya kaya hati anak semester akhir: gelap, tapi tetap berpendar harapan.</p>
+
+<p><strong>Kesimpulan:</strong><br>
+Logo “AKI” ini bukan cuma keren, tapi juga punya napas perlawanan dan identitas. Cocok banget buat akun meme kampus yang isinya bukan cuma lucu, tapi juga ada “pesan moral tersembunyi” di balik kelakuan absurd.</p>
         </section>
 
         <!-- Bagian baru: Statistik -->
@@ -355,7 +396,7 @@
 
         <!-- Bagian baru: Daftar Anggota -->
         <section class="membership">
-            <h2>Anggota Terbaru</h2>
+            <h2>Anggota terbaru</h2>
             <div class="membership-grid" id="membershipGrid">
                 <!-- Akan diisi oleh JavaScript -->
             </div>
@@ -437,8 +478,7 @@
                     card.className = 'member-card';
                     card.innerHTML = `
                         <h3>@${kampus.namaMeme}</h3>
-                        <p>${kampus.deskripsi}</p>
-                        <div class="member-motto">${kampus.motto}</div>
+                        <p class="member-motto">${kampus.motto}</p>
                     `;
                     membershipGrid.appendChild(card);
                 });
