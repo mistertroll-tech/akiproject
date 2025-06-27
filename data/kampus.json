@@ -4,46 +4,46 @@
     "namaKampus": "Universitas Nahdlatul Ulama Cirebon",
     "logo": "unuc.png",
     "namaMeme": "unuc.shitmeme",
-    "deskripsi": "UNUS.SHITMEME adalah bentuk nyata dari mahasiswa yang lelah tapi masih sempat bikin meme. Tempat menfess, satir, kritik, saran, dan nyinyiran akademis yang gak bisa disampaikan lewat kotak saran karena entah itu kotaknya gak ada atau langsung dibuang.Kami tidak menyelesaikan masalah, tapi minimal bikin kamu ketawa sambil mikir: •Lah, bener juga ya•Kalau kampus penuh formalitas, kami hadir sebagai suara waras yang dibungkus bercanda.Di sini, dosen bisa jadi bahan, birokrasi bisa jadi punchline, dan keresahan bisa jadi konten.",
+    "deskripsi": "UNUS.SHITMEME adalah bentuk nyata dari mahasiswa yang lelah tapi masih sempat bikin meme. Tempat menfess, satir, kritik, saran, dan nyinyiran akademis yang gak bisa disampaikan lewat kotak saran karena entah itu kotaknya gak ada atau langsung dibuang. Kami tidak menyelesaikan masalah, tapi minimal bikin kamu ketawa sambil mikir: •Lah, bener juga ya• Kalau kampus penuh formalitas, kami hadir sebagai suara waras yang dibungkus bercanda. Di sini, dosen bisa jadi bahan, birokrasi bisa jadi punchline, dan keresahan bisa jadi konten.",
     "motto": "Tuanku ya Mahasiswa, Admin Hanyalah Mandat.",
     "tombol": [
       { "label": "Instagram", "link": "https://www.instagram.com/unuc.shitmeme" },
       { "label": "Donate", "link": "https://saweria.co/unucshitpost" }
     ]
-  }
+  },
   {
-  "slug": "memeyuem",
-  "namaKampus": "Universitas Negeri Malang",
-  "logo": "logo-memeyuem.png",
-  "namaMeme": "meme.yuem",
-  "deskripsi": "Akun meme yuem adalah akun meme milik universitas negeri malang yang dinaungi oleh manusia manusia independen tak gentar senggol bacok",
-  "motto": "UM Mendidik & Mendadak",
-  "tombol": [
-    { "label": "Instagram", "link": "https://www.instagram.com/meme.yuem" },
-    { "label": "Donate", "link": "https://saweria.co/memeyuem/" }
-  ]
-},
-{
-  "slug": "unesartir",
-  "namaKampus": "Universitas Negeri Surabaya",
-  "logo": "logo-unesartir.png",
-  "namaMeme": "Unesartir",
-  "deskripsi": "Akun shitpost berkedok meme Unesa (Universitas Negeri Sartir",
-  "motto": "Gak perlu serius begini, hidup itu perlu komedi",
-  "tombol": [
-    { "label": "Instagram", "link": "https://www.instagram.com/Unesartir" },
-    { "label": "Donate", "link": "https://saweria.co/unesartir" }
-  ]
-,
-{
-  "slug": "unhashitpost",
-  "namaKampus": "Unversitas Hasyim Asy'ari",
-  "logo": "logo-unhashitpost.png",
-  "namaMeme": "un.hashitpost",
-  "deskripsi": "Official Shitpost Unhasy",
-  "motto": "Mari tertawa bersama mahasiswa yang kurang tertawa",
-  "tombol": [
-    { "label": "Instagram", "link": "https://www.instagram.com/un.hashitpost" }
-  ]
-}
+    "slug": "memeyuem",
+    "namaKampus": "Universitas Negeri Malang",
+    "logo": "logo-memeyuem.png",
+    "namaMeme": "meme.yuem",
+    "deskripsi": "Akun meme yuem adalah akun meme milik universitas negeri malang yang dinaungi oleh manusia manusia independen tak gentar senggol bacok",
+    "motto": "UM Mendidik & Mendadak",
+    "tombol": [
+      { "label": "Instagram", "link": "https://www.instagram.com/meme.yuem" },
+      { "label": "Donate", "link": "https://saweria.co/memeyuem/" }
+    ]
+  },
+  {
+    "slug": "unesartir",
+    "namaKampus": "Universitas Negeri Surabaya",
+    "logo": "logo-unesartir.png",
+    "namaMeme": "Unesartir",
+    "deskripsi": "Akun shitpost berkedok meme Unesa (Universitas Negeri Sartir)",
+    "motto": "Gak perlu serius begini, hidup itu perlu komedi",
+    "tombol": [
+      { "label": "Instagram", "link": "https://www.instagram.com/Unesartir" },
+      { "label": "Donate", "link": "https://saweria.co/unesartir" }
+    ]
+  },
+  {
+    "slug": "unhashitpost",
+    "namaKampus": "Universitas Hasyim Asy'ari",
+    "logo": "logo-unhashitpost.png",
+    "namaMeme": "un.hashitpost",
+    "deskripsi": "Official Shitpost Unhasy",
+    "motto": "Mari tertawa bersama mahasiswa yang kurang tertawa",
+    "tombol": [
+      { "label": "Instagram", "link": "https://www.instagram.com/un.hashitpost" }
+    ]
+  }
 ]
