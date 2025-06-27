@@ -22,5 +22,16 @@
       { "label": "Instagram", "link": "https://www.instagram.com/meme.yuem" },
       { "label": "Donate", "link": "https://saweria.co/memeyuem/" }
     ]
-  }
+  },
+ {
+  "slug": "unhashitpost",
+  "namaKampus": "Unversitas Hasyim Asy'ari",
+  "logo": "logo-unhashitpost.png",
+  "namaMeme": "un.hashitpost",
+  "deskripsi": "Official Shitpost Unhasy",
+  "motto": "Mari tertawa bersama mahasiswa yang kurang tertawa",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/un.hashitpost" }
+  ]
+} 
 ]
