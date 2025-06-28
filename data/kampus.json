@@ -45,5 +45,17 @@
     "tombol": [
       { "label": "Instagram", "link": "https://www.instagram.com/un.hashitpost" }
     ]
-  }
+  },
+  {
+  "slug": "unshitper17",
+  "namaKampus": "Universitas Perjuangan Tasikmalaya",
+  "logo": "logo-unshitper17.png",
+  "namaMeme": "Univershipost Perjuangan",
+  "deskripsi": "Akun meme shitpost kampus unper yang berdiri pada tahun 2023 tapi aslinya 2022 akhir, dan merubah akun meme shitpost kampus pertama di Tasikmalaya",
+  "motto": "Keluh kesah unper basah",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/unshitper17" },
+    { "label": "Donate", "link": "https://saweria.co/unshitper" }
+  ]
+}
 ]
