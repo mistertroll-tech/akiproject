@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${kampus.namaKampus} - Profil Kampus AKI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/assets/logos/aki-logo.png" type="image/png">
+    <style>
+        :root {
+            /* Color Variables */
+            --primary: #FF4757;
+            --primary-light: #FF6B81;
+            --primary-dark: #b20710;
+            --secondary: #1a1a1a;
+            --secondary-light: #2a2a2a;
+            --accent: #70A1FF;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --bg: #121212;
+            --bg-secondary: #1e1e1e;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            
+            /* Size Variables */
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 12px 40px rgba(255, 71, 87, 0.3);
+            --gradient: linear-gradient(135deg, var(--primary), var(--primary-light));
+            --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
+            
+            /* Text Size Variables */
+            --text-xs: 0.75rem;     /* 12px */
+            --text-sm: 0.875rem;    /* 14px */
+            --text-base: 1rem;      /* 16px */
+            --text-lg: 1.125rem;    /* 18px */
+            --text-xl: 1.25rem;    /* 20px */
+            --text-2xl: 1.5rem;     /* 24px */
+            --text-3xl: 1.875rem;   /* 30px */
+            --text-4xl: 2.25rem;    /* 36px */
+            --text-5xl: 3rem;       /* 48px */
+            
+            /* Button Size Variables */
+            --btn-padding-x: 2rem;
+            --btn-padding-y: 1rem;
+            --btn-font-size: var(--text-base);
+            --btn-icon-size: 1.1rem;
+            --btn-min-width: 200px;
+            --btn-border-radius: var(--border-radius);
+            
+            /* Section Variables */
+            --section-padding: 2.5rem;
+            --section-title-size: var(--text-3xl);
+            --section-margin-bottom: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-size: var(--text-base);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* Glow Effect */
+        .glow {
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.7);
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .preloader-bar {
+            width: 200px;
+            height: 4px;
+            background: var(--secondary-light);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preloader-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 71, 87, 0.2);
+        }
+
+        .navbar.scrolled {
+            padding: 0.75rem 0;
+            background-color: rgba(26, 26, 26, 0.98);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+main.container {
+    padding-top: 100px; /* Sesuaikan tinggi navbar + margin aman */
+}
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+            filter: drop-shadow(0 0 5px rgba(255, 71, 87, 0.5));
+        }
+
+        .logo-text {
+            margin-left: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: var(--text-xl);
+            color: var(--text);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: var(--transition);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-light);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-light);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: var(--text-3xl);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        .hamburger:hover {
+            color: var(--primary-light);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 120px;
+            padding-bottom: 4rem;
+            min-height: 100vh;
+        }
+
+        /* Kampus Profile */
+        .kampus-profile {
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Kampus Header */
+        .kampus-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .kampus-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .kampus-logo-container {
+            position: relative;
+            margin: 2rem auto;
+            width: 180px;
+            height: 180px;
+        }
+
+        .kampus-logo-large {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 5px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kampus-logo-large::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: conic-gradient(
+                var(--primary),
+                var(--accent),
+                var(--primary)
+            );
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .kampus-logo-large img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+            transition: var(--transition);
+        }
+
+        .kampus-logo-large:hover img {
+            transform: scale(1.05);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--gradient);
+            color: white;
+            font-size: var(--text-xs);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        .verified-badge i {
+            font-size: 0.7rem;
+        }
+
+        .kampus-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: var(--text-xl);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .meme-name {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .meme-name span {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .motto {
+            font-style: italic;
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 0 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .motto::before, .motto::after {
+            content: '"';
+            color: var(--primary);
+            font-size: var(--text-2xl);
+            position: absolute;
+            opacity: 0.7;
+        }
+
+        .motto::before {
+            left: 0;
+            top: -5px;
+        }
+
+        .motto::after {
+            right: 0;
+            bottom: -15px;
+        }
+
+        .kampus-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            font-size: var(--text-sm);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+            border-color: var(--primary);
+        }
+
+        .social-icon {
+            font-size: var(--text-lg);
+        }
+
+        /* Content Sections */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: var(--section-title-size);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .kampus-section {
+            background-color: var(--card-bg);
+            padding: var(--section-padding);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--section-margin-bottom);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kampus-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        .kampus-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .kampus-section:hover::before {
+            width: 8px;
+        }
+
+        .description-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: var(--text-base);
+        }
+
+        .description-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Action Buttons */
+        .kampus-actions {
+            margin-bottom: 3rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            border-radius: var(--btn-border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: var(--btn-font-size);
+            position: relative;
+            overflow: hidden;
+            min-width: var(--btn-min-width);
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 71, 87, 0.5);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.2);
+        }
+
+        .btn-icon {
+            font-size: var(--btn-icon-size);
+        }
+
+        /* Back Link */
+        .back-link {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            width: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: var(--text-base);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: var(--text-2xl);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Error Message */
+        .error-message {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--primary-light);
+        }
+
+        .error-message i {
+            font-size: var(--text-5xl);
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .error-message h2 {
+            font-size: var(--text-3xl);
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .error-message p {
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: var(--text-base);
+        }
+
+        .error-message a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: var(--text-base);
+        }
+
+        .error-message a:hover {
+            color: var(--text);
+        }
+
+        /* Floating Particles */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: var(--text-xl);
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.5);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            :root {
+                --kampus-title-size: var(--text-3xl);
+                --meme-name-size: var(--text-base);
+                --section-padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --btn-padding-x: 1.5rem;
+                --btn-padding-y: 0.875rem;
+                --btn-min-width: 100%;
+                --section-title-size: var(--text-2xl);
+                --kampus-title-size: var(--text-3xl);
+                --kampus-logo-size: 150px;
+                --motto-size: var(--text-sm);
+                --section-padding: 2rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 6rem 2rem 2rem;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .kampus-logo-container {
+                width: var(--kampus-logo-size);
+                height: var(--kampus-logo-size);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --text-base: 0.9375rem; /* 15px */
+                --kampus-title-size: var(--text-2xl);
+                --kampus-logo-size: 120px;
+                --section-title-size: var(--text-xl);
+                --section-padding: 1.5rem;
+                --motto-size: var(--text-sm);
+            }
+
+            .container {
+                padding: 0 1.25rem;
+            }
+            
+            main {
+                padding-top: 100px;
+            }
+            
+            .kampus-logo-container {
+                margin: 1.5rem auto;
+            }
+            
+            .motto {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <img src="/assets/logos/aki-logo.png" alt="AKI Logo" class="preloader-logo">
+        <div class="preloader-bar">
+            <div class="preloader-progress" id="preloaderProgress"></div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-img">
+                <span class="logo-text">.</span>
+            </a>
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="/seputar-AKI.html"><i class="fas fa-pen-fancy"></i> Goresan AKI</a></li>
+                <li><a href="/personal.html" class="active"><i class="fas fa-university"></i> Daftar Kampus</a></li>
+                <li><a href="/contact.html"><i class="fas fa-envelope"></i> Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container" id="kampusProfile">
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Memuat profil kampus...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="footer-logo">
+                <div class="footer-links">
+                    <a href="/index.html">Beranda</a>
+                    <a href="/seputar-AKI.html">Goresan AKI</a>
+                    <a href="/personal.html">Daftar Kampus</a>
+                    <a href="/contact.html">Hubungi Kami</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <p class="copyright">&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate preloader progress
+            const preloader = document.getElementById('preloader');
+            const progress = document.getElementById('preloaderProgress');
+            let width = 0;
+            const interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                } else {
+                    width += 10;
+                    progress.style.width = width + '%';
+                }
+            }, 200);
+
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Initialize particles.js
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#FF4757" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: "#FF4757", opacity: 0.3, width: 1 },
+                        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "repulse" },
+                            onclick: { enable: true, mode: "push" }
+                        }
+                    }
+                });
+            }
+
+            // Load kampus data
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            
+            if (!slug) {
+                showError('Parameter kampus tidak valid');
+                return;
+            }
+            
+            loadKampusProfile(slug);
+        });
+
+        async function loadKampusProfile(slug) {
+            try {
+                const response = await fetch('/data/kampus.json');
+                if (!response.ok) throw new Error('Gagal memuat data');
+                
+                const data = await response.json();
+                const kampus = data.find(k => k.slug === slug);
+                
+                if (!kampus) {
+                    showError('Kampus tidak ditemukan');
+                    return;
+                }
+                
+                renderKampusProfile(kampus);
+                
+                // Update page title
+                document.title = `${kampus.namaKampus} - Profil Kampus AKI`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Terjadi kesalahan saat memuat data');
+            }
+        }
+
+        function renderKampusProfile(kampus) {
+            const profile = document.getElementById('kampusProfile');
+            
+            profile.innerHTML = `
+                <article class="kampus-profile">
+                    <header class="kampus-header">
+                        <div class="kampus-logo-container">
+                            <div class="kampus-logo-large">
+                                <img src="/assets/logos/${kampus.logo}" alt="Logo ${kampus.namaKampus}" loading="lazy">
+                            </div>
+                            ${kampus.verified ? '<span class="verified-badge"><i class="fas fa-check"></i> Terverifikasi</span>' : ''}
+                        </div>
+                        <div class="kampus-info">
+                            <h1 class="kampus-title">${kampus.namaKampus}</h1>
+                            <h2 class="meme-name">Akun meme: <span>@${kampus.namaMeme}</span></h2>
+                            ${kampus.motto ? `<p class="motto">${kampus.motto}</p>` : ''}
+                            <div class="kampus-meta">
+                                ${kampus.akunInstagram ? `
+                                <a href="https://instagram.com/${kampus.akunInstagram}" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-instagram social-icon"></i> Instagram
+                                </a>
+                                ` : ''}
+                                ${kampus.website ? `
+                                <a href="${kampus.website}" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-globe social-icon"></i> Website
+                                </a>
+                                ` : ''}
+                                ${kampus.facebook ? `
+                                <a href="${kampus.facebook}" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-facebook-f social-icon"></i> Facebook
+                                </a>
+                                ` : ''}
+                                ${kampus.twitter ? `
+                                <a href="${kampus.twitter}" class="social-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter social-icon"></i> Twitter
+                                </a>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <section class="kampus-section">
+                        <h2 class="section-title">Tentang Kampus</h2>
+                        <div class="description-content">
+                            <p>${kampus.deskripsi}</p>
+                        </div>
+                    </section>
+                    
+                    ${kampus.filosofi ? `
+                    <section class="kampus-section">
+                        <h2 class="section-title">Filosofi Meme</h2>
+                        <div class="description-content">
+                            <p>${kampus.filosofi}</p>
+                        </div>
+                    </section>
+                    ` : ''}
+                    
+                    ${kampus.tombol && kampus.tombol.length > 0 ? `
+                    <section class="kampus-section kampus-actions">
+                        <h2 class="section-title">Tautan Penting</h2>
+                        <div class="action-buttons">
+                            ${kampus.tombol.map(btn => `
+                            <a href="${btn.link}" class="btn ${btn.primary ? 'btn-primary' : 'btn-secondary'}" target="_blank" rel="noopener noreferrer">
+                                ${btn.icon ? `<i class="${btn.icon} btn-icon"></i>` : ''}
+                                ${btn.label}
+                            </a>
+                            `).join('')}
+                        </div>
+                    </section>
+                    ` : ''}
+                    
+                    <div class="back-link">
+                        <a href="/personal.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left btn-icon"></i> Kembali ke Daftar Kampus
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        function showError(message) {
+            const profile = document.getElementById('kampusProfile');
+            profile.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>${message}</h2>
+                    <p>Silakan periksa kembali URL atau coba lagi nanti.</p>
+                    <a href="/personal.html"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Kampus</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

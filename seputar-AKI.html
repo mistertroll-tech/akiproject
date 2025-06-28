@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel - Alianshitposting Kampus Indonesia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff3d3d;
+            --secondary: #000;
+            --text: #fff;
+            --text-secondary: #aaa;
+            --bg: #111;
+            --bg-secondary: #222;
+            --border: #333;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('./assets/logos/aki-id.png') center/cover no-repeat;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero .container {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Article Categories */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .category-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .category-title a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .category-title a:hover {
+            color: var(--primary);
+        }
+
+        /* Article Cards Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Improved Image Styles */
+        .article-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .article-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .article-meta {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .article-meta span {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .article-excerpt {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(229, 9, 20, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero {
+                height: 150px;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Beranda</a></li>
+                 <li><a href="/seputar-AKI.html">Goresan AKI</a></li>
+                <li><a href="personal.html">Daftar Kampus</a></li>
+                <li><a href="contact.html">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Artikel Seputar AKI</h1>
+            <p>Kumpulan meme, opini, dan berita kampus terbaru</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="categoriesContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+
+            // Load articles data
+            fetch('./data/artikel.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderCategories(data.artikel);
+                })
+                .catch(error => {
+                    console.error('Error loading articles:', error);
+                    showError();
+                });
+
+            function renderCategories(articles) {
+                const categoriesContainer = document.getElementById('categoriesContainer');
+                
+                if (!articles || articles.length === 0) {
+                    showError('Tidak ada artikel yang tersedia');
+                    return;
+                }
+                
+                // Group articles by category
+                const categories = {};
+                articles.forEach(article => {
+                    if (!categories[article.kategori]) {
+                        categories[article.kategori] = [];
+                    }
+                    categories[article.kategori].push(article);
+                });
+                
+                // Clear loading state
+                categoriesContainer.innerHTML = '';
+                
+                // Render each category
+                for (const [category, articlesInCategory] of Object.entries(categories)) {
+                    const categorySection = document.createElement('section');
+                    categorySection.className = 'category-section';
+                    
+                    // Category title with "View All" link
+                    const categoryTitle = document.createElement('div');
+                    categoryTitle.className = 'category-title';
+                    
+                    const categoryName = getCategoryName(category);
+                    categoryTitle.innerHTML = `
+                        <h2>${categoryName}</h2>
+                        <a href="./kategori/artikel-${category}.html">Lihat Semua</a>
+                    `;
+                    
+                    // Articles grid (show only 3-5 articles)
+                    const articlesGrid = document.createElement('div');
+                    articlesGrid.className = 'articles-grid';
+                    
+                    // Limit articles per category
+                    const articlesToShow = articlesInCategory.slice(0, 4);
+                    
+                    articlesToShow.forEach(article => {
+                        const excerpt = getExcerpt(article.konten);
+                        const formattedDate = formatDate(article.tanggal);
+                        
+                        const articleCard = document.createElement('article');
+                        articleCard.className = 'article-card';
+                        articleCard.innerHTML = `
+                            <div class="article-image-container">
+                                <img 
+                                    src="./assets/artikel/${article.gambar || 'placeholder.jpg'}" 
+                                    alt="${article.judul}" 
+                                    class="article-image"
+                                    loading="lazy"
+                                >
+                            </div>
+                            <div class="article-content">
+                                <h3>${article.judul}</h3>
+                                <div class="article-meta">
+                                    <span>${article.penulis}</span>
+                                    <span>${formattedDate}</span>
+                                    <span>${article.asalKampus}</span>
+                                </div>
+                                <p class="article-excerpt">${excerpt}</p>
+                                <a href="./artikel.html?slug=${article.slug}" class="read-more">Baca Selengkapnya →</a>
+                            </div>
+                        `;
+                        articlesGrid.appendChild(articleCard);
+                    });
+                    
+                    categorySection.appendChild(categoryTitle);
+                    categorySection.appendChild(articlesGrid);
+                    categoriesContainer.appendChild(categorySection);
+                }
+            }
+            
+            function getCategoryName(category) {
+                const names = {
+                    'utama': 'Artikel Utama',
+                    'kampus': 'Berita Kampus',
+                    'opini': 'Opini'
+                };
+                return names[category] || category;
+            }
+            
+            function getExcerpt(contentArray) {
+                let text = '';
+                for (const item of contentArray) {
+                    if (item.type === 'text') {
+                        text += item.value + ' ';
+                    }
+                    if (text.split(' ').length > 25) break;
+                }
+                
+                // Limit to 25 words
+                const words = text.trim().split(' ');
+                const excerpt = words.slice(0, 25).join(' ');
+                return excerpt + (words.length > 25 ? '...' : '');
+            }
+            
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+            
+            function showError(message = 'Gagal memuat artikel. Silakan coba lagi nanti.') {
+                const categoriesContainer = document.getElementById('categoriesContainer');
+                categoriesContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--primary)">
+                        <p>${message}</p>
+                        <button onclick="window.location.reload()" style="
+                            margin-top: 1rem;
+                            padding: 0.5rem 1rem;
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                        ">Coba Lagi</button>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

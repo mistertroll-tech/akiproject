@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel Detail - AKI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff3d3d;
+            --secondary: #000;
+            --text: #fff;
+            --text-secondary: #aaa;
+            --bg: #111;
+            --bg-secondary: #222;
+            --border: #333;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('../assets/logos/aki-id.png') center/cover no-repeat;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero .container {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Article Styles */
+        .article-container {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .article-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .article-title {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+        
+        .article-date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .article-image-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 2.5rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .article-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content .bold {
+            font-weight: bold;
+            color: var(--text);
+        }
+
+        .article-footer {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            background: rgba(229, 9, 20, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .back-button:hover {
+            color: var(--primary-hover);
+            background: rgba(229, 9, 20, 0.2);
+        }
+        
+        .error-container {
+            text-align: center;
+            padding: 3rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .article-title {
+                font-size: 1.75rem;
+            }
+            
+            .hero {
+                height: 150px;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .article-title {
+                font-size: 1.5rem;
+            }
+
+            .article-author {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .author-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/logos/aki-id.png" alt="AKI Logo" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="../index.html">Beranda</a></li>
+                <li><a href="/seputar-AKI.html">Goresan AKI</a></li>
+                <li><a href="../personal.html">Daftar Kampus</a></li>
+                <li><a href="../contact.html">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Artikel Meme Kampus</h1>
+            <p>Wawasan dan Humor dari Kampus-kampus Indonesia</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="article-container" id="articleContainer">
+            <!-- Artikel akan di-render secara dinamis di sini -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+
+            // Get slug from query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+
+            if (!slug) {
+                showError('Artikel tidak ditemukan');
+                return;
+            }
+
+            // Load article data
+            fetch('../data/artikel.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const article = data.artikel.find(art => art.slug === slug);
+                    
+                    if (article) {
+                        renderArticle(article);
+                    } else {
+                        showError('Artikel tidak ditemukan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading article:', error);
+                    showError('Gagal memuat artikel. Silakan coba lagi nanti.');
+                });
+            
+            function renderArticle(article) {
+                const container = document.getElementById('articleContainer');
+                
+                // Format tanggal
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = new Date(article.tanggal).toLocaleDateString('id-ID', options);
+                
+                // Generate initials for avatar
+                const initials = article.penulis.split(' ')
+                    .map(name => name[0])
+                    .join('')
+                    .toUpperCase();
+                
+                let contentHTML = '';
+                article.konten.forEach(block => {
+                    if (block.type === 'text') {
+                        contentHTML += `<p>${block.value}</p>`;
+                    } else if (block.type === 'bold') {
+                        contentHTML += `<p class="bold">${block.value}</p>`;
+                    }
+                });
+                
+                container.innerHTML = `
+                    <div class="article-header">
+                        <h1 class="article-title">${article.judul}</h1>
+                        <span class="article-date">${formattedDate}</span>
+                    </div>
+                    
+                    ${article.gambar ? `
+                    <div class="article-image-container">
+                        <img src="../assets/artikel/${article.gambar}" alt="${article.judul}" class="article-image" loading="lazy">
+                    </div>
+                    ` : ''}
+                    
+                    <div class="article-content">
+                        ${contentHTML}
+                    </div>
+                    
+                    <div class="article-footer">
+                        <div class="article-author">
+                            <div class="author-avatar">${initials}</div>
+                            <div class="author-info">
+                                <h4>${article.penulis}</h4>
+                                <p>${article.asalKampus}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="../seputar-AKI.html" class="back-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Kembali ke Beranda
+                    </a>
+                `;
+            }
+            
+            function showError(message) {
+                const container = document.getElementById('articleContainer');
+                container.innerHTML = `
+                    <div class="error-container">
+                        <h2>${message}</h2>
+                        <p>Artikel yang Anda cari tidak ditemukan atau mungkin telah dihapus.</p>
+                        <a href="../seputar-AKI.html" class="back-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Kembali ke Beranda
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

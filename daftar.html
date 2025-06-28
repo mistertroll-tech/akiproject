@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftarkan Kampus - AKI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== */
+        /* VARIABLES & RESET */
+        /* ==================== */
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff3d3d;
+            --secondary: #000;
+            --text: #fff;
+            --text-secondary: #aaa;
+            --bg: #111;
+            --bg-secondary: #222;
+            --border: #333;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-hover);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background-color: var(--bg-secondary);
+            color: var(--text);
+        }
+
+        /* ==================== */
+        /* NAVBAR */
+        /* ==================== */
+        .navbar {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+.logo-aki {
+    max-width: 200px; /* batas lebar maksimum */
+    height: auto;
+    transition: var(--transition);
+}
+
+.logo-aki:hover {
+    transform: scale(1.05);
+}
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        /* ==================== */
+        /* FORM STYLES */
+        /* ==================== */
+        .form-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            color: var(--text);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-label:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #fileName {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .file-preview {
+            position: relative;
+            margin-top: 1rem;
+            width: 150px;
+            height: 150px;
+            border: 2px dashed var(--border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .remove-image-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 25px;
+            height: 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-actions {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .form-message {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .form-message.success {
+            background-color: rgba(40, 167, 69, 0.15);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #28a745;
+        }
+
+        .form-message.error {
+            background-color: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .slug-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slug-prefix {
+            white-space: nowrap;
+        }
+
+        /* ==================== */
+        /* FOOTER */
+        /* ==================== */
+        footer {
+            background-color: var(--secondary);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== */
+        /* RESPONSIVE */
+        /* ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .form-section {
+                padding: 1rem;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 0.6rem 0.8rem;
+            }
+            
+            .slug-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logos/aki-id.png" alt="AKI Logo" class="logo-aki">
+            </a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/seputar-AKI.html">Goresan AKI</a></li>
+                <li><a href="/personal.html">Daftar Kampus</a></li>
+                <li><a href="/contact.html">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="form-section">
+            <h1>Daftarkan Kampus Anda</h1>
+            <p>Isi form berikut untuk mendaftarkan akun meme kampus Anda ke dalam Alianshitposting Kampus Indonesia,Cek Format anda di Channel Telegram kami: @aki_menfess</p>
+            
+            <form id="kampusForm" class="form-container">
+                <div class="form-group">
+                    <label for="namaKampus">Nama Kampus*</label>
+                    <input type="text" id="namaKampus" name="namaKampus" required placeholder="Contoh: Universitas Shitpost Indonesia">
+                </div>
+                
+                <div class="form-group">
+                    <label for="namaMeme">Nama Akun Meme*</label>
+                    <input type="text" id="namaMeme" name="namaMeme" required placeholder="Contoh: aki">
+                </div>
+                
+                <div class="form-group">
+                    <label for="slug">Custom Link*</label>
+                    <div class="slug-container">
+                        <span class="slug-prefix">linkwebsite.com/</span>
+                        <input type="text" id="slug" name="slug" required placeholder="aki" pattern="[a-z0-9-]+" title="Hanya huruf kecil, angka, dan tanda hubung (-)">
+                    </div>
+                    <small style="color: var(--text-secondary);">Link akan menjadi: linkwebsite.com/<span id="slugPreview">aki</span></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="motto">Motto Akun*</label>
+                    <input type="text" id="motto" name="motto" required placeholder="Contoh: Tuanku ya Mahasiswa, Admin Hanyalah Mandat">
+                </div>
+                
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi*</label>
+                    <textarea id="deskripsi" name="deskripsi" required placeholder="Deskripsi singkat tentang akun meme kampus Anda"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="instagram">Akun Instagram*</label>
+                    <input type="text" id="instagram" name="instagram" required placeholder="Contoh: aki (tanpa @)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="donateLink">Link Donasi (Opsional)</label>
+                    <input type="url" id="donateLink" name="donateLink" placeholder="Contoh: https://saweria.co/aki">
+                </div>
+                
+                <div class="form-group">
+                    <label>Logo Kampus*</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="logoUpload" accept="image/*" required>
+                        <label for="logoUpload" class="file-upload-label">Pilih File Logo</label>
+                        <span id="fileName">Belum ada file dipilih</span>
+                    </div>
+                    <div class="file-preview" id="logoPreview"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminContact">Kontak Admin*</label>
+                    <input type="text" id="adminContact" name="adminContact" required placeholder="Username Telegram/WhatsApp untuk konfirmasi">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn submit-btn">Kirim Pendaftaran</button>
+                </div>
+            </form>
+            
+            <div id="formMessage" class="form-message hidden"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Alianshitposting Kampus Indonesia. Semua hak dipreteli.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.textContent = '☰';
+                });
+            });
+            
+            // File upload preview
+            const logoUpload = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
+            const fileName = document.getElementById('fileName');
+            
+            logoUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Validate file type
+                    if (!file.type.match('image.*')) {
+                        showMessage('Hanya file gambar yang diperbolehkan', 'error');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Validate file size (max 2MB)
+                    if (file.size > 2 * 1024 * 1024) {
+                        showMessage('Ukuran file maksimal 2MB', 'error');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    fileName.textContent = file.name;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        logoPreview.innerHTML = `
+                            <img src="${event.target.result}" alt="Preview Logo" class="preview-image">
+                            <button class="remove-image-btn" type="button">×</button>
+                        `;
+                        
+                        // Add remove image functionality
+                        document.querySelector('.remove-image-btn').addEventListener('click', function() {
+                            logoPreview.innerHTML = '';
+                            logoUpload.value = '';
+                            fileName.textContent = 'Belum ada file dipilih';
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Slug preview and validation
+            const slugInput = document.getElementById('slug');
+            const slugPreview = document.getElementById('slugPreview');
+            
+            slugInput.addEventListener('input', function() {
+                // Convert to lowercase and replace spaces and special characters with dashes
+                let slugValue = this.value.toLowerCase()
+                    .replace(/\s+/g, '-')       // Replace spaces with -
+                    .replace(/[^\w-]+/g, '')       // Remove all non-word chars
+                    .replace(/--+/g, '-')           // Replace multiple - with single -
+                    .replace(/^-+/, '')             // Trim - from start of text
+                    .replace(/-+$/, '');            // Trim - from end of text
+                
+                // Update the input value with cleaned version
+                this.value = slugValue;
+                slugPreview.textContent = slugValue;
+            });
+            
+            // Form submission
+            const form = document.getElementById('kampusForm');
+            const formMessage = document.getElementById('formMessage');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData();
+                const logoFile = logoUpload.files[0];
+                
+                if (!logoFile) {
+                    showMessage('Harap unggah logo kampus', 'error');
+                    return;
+                }
+                
+                // Prepare data
+                const kampusData = {
+                    namaKampus: document.getElementById('namaKampus').value.trim(),
+                    namaMeme: document.getElementById('namaMeme').value.trim(),
+                    slug: document.getElementById('slug').value.trim(),
+                    motto: document.getElementById('motto').value.trim(),
+                    deskripsi: document.getElementById('deskripsi').value.trim(),
+                    instagram: document.getElementById('instagram').value.trim().replace('@', ''),
+                    donateLink: document.getElementById('donateLink').value.trim(),
+                    adminContact: document.getElementById('adminContact').value.trim()
+                };
+                
+                // Validate required fields
+                if (!kampusData.namaKampus || !kampusData.namaMeme || !kampusData.slug || 
+                    !kampusData.motto || !kampusData.deskripsi || !kampusData.instagram || 
+                    !kampusData.adminContact) {
+                    showMessage('Harap isi semua field yang wajib diisi', 'error');
+                    return;
+                }
+                
+                // Validate slug format
+                if (!/^[a-z0-9-]+$/.test(kampusData.slug)) {
+                    showMessage('Custom Link hanya boleh berisi huruf kecil, angka, dan tanda hubung (-)', 'error');
+                    return;
+                }
+                
+                // Validate Instagram format
+                if (!/^[a-zA-Z0-9._]+$/.test(kampusData.instagram)) {
+                    showMessage('Format username Instagram tidak valid', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = document.querySelector('.submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Mengirim...';
+                
+                try {
+                    // Send to Telegram
+                    const botToken = '7689764388:AAGJ8yYZh_TZ4wkki_DSzv9YhnNO9igKTqo';
+                    const chatId = '-1002751329542';
+                    
+                    const telegramFormData = new FormData();
+                    telegramFormData.append('chat_id', chatId);
+                    telegramFormData.append('photo', logoFile);
+                    
+                    // Format caption with Markdown
+                    const caption = `
+📢 *PENDAFTARAN KAMPUS BARU* 📢
+
+🏛 *Nama Kampus:* ${kampusData.namaKampus}
+📛 *Nama Akun Meme:* ${kampusData.namaMeme}
+🔗 *Custom Link:* aki.shitpost.my.id/${kampusData.slug}
+💬 *Motto:* "${kampusData.motto}"
+📝 *Deskripsi:* ${kampusData.deskripsi}
+📱 *Instagram:* @${kampusData.instagram}
+${kampusData.donateLink ? `💸 *Link Donasi:* ${kampusData.donateLink}` : ''}
+👤 *Kontak Admin:* ${kampusData.adminContact}
+
+\`\`\`json
+{
+  "slug": "${kampusData.slug}",
+  "namaKampus": "${kampusData.namaKampus}",
+  "logo": "logo-${kampusData.slug}.png",
+  "namaMeme": "${kampusData.namaMeme}",
+  "deskripsi": "${kampusData.deskripsi}",
+  "motto": "${kampusData.motto}",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/${kampusData.instagram}" }${kampusData.donateLink ? `,
+    { "label": "Donate", "link": "${kampusData.donateLink}" }` : ''}
+  ]
+}
+\`\`\`
+`;
+                    
+                    telegramFormData.append('caption', caption);
+                    telegramFormData.append('parse_mode', 'Markdown');
+                    
+                    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                        method: 'POST',
+                        body: telegramFormData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.ok) {
+                        showMessage('Cek Apakah Sudah berhasil dikirim!pantau di telegram: @aki_menfess.', 'success');
+                        form.reset();
+                        logoPreview.innerHTML = '';
+                        fileName.textContent = 'Belum ada file dipilih';
+                        slugPreview.textContent = 'aki';
+                    } else {
+                        throw new Error(result.description || 'Gagal mengirim ke Telegram');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage(`Terjadi kesalahan: ${error.message}`, 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Kirim Pendaftaran';
+                }
+            });
+            
+            function showMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = `form-message ${type}`;
+                formMessage.classList.remove('hidden');
+                
+                // Scroll to message
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
