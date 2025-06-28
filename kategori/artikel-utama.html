@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artikel Utama - AKI</title>
+    <title>Artikel - AKI</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -129,26 +129,102 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Category Header */
-        .category-header {
-            margin-bottom: 2rem;
-            text-align: center;
+        /* Article Content */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto 3rem;
             animation: fadeIn 0.5s ease-out;
         }
 
-        .category-header h1 {
+        .article-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .article-header h1 {
             font-size: 2rem;
             color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
         }
 
-        .category-header p {
+        .article-meta {
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        /* Back Button */
+        .article-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-meta svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .article-image-container {
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .article-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .article-image-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .article-content {
+            margin-top: 2rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .article-content strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--primary);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .article-content ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -166,106 +242,6 @@
         .back-button:hover {
             color: var(--primary-hover);
             background-color: rgba(229, 9, 20, 0.2);
-        }
-
-        /* Articles Grid */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .article-card {
-            background-color: var(--bg-secondary);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            animation: fadeIn 0.5s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Improved Image Container */
-        .article-image-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            overflow: hidden;
-        }
-
-        .article-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .article-card:hover .article-image {
-            transform: scale(1.05);
-        }
-
-        .article-content {
-            padding: 1.5rem;
-        }
-
-        .article-content h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--text);
-            line-height: 1.4;
-        }
-
-        .article-meta {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .article-meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .article-meta svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
-        }
-
-        .article-excerpt {
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .read-more:hover {
-            color: var(--primary-hover);
-            text-decoration: underline;
         }
 
         /* Loading State */
@@ -361,9 +337,8 @@
                 font-size: 1.75rem;
             }
 
-            .articles-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 1.5rem;
+            .article-header h1 {
+                font-size: 1.75rem;
             }
         }
 
@@ -371,17 +346,19 @@
             .container {
                 padding: 0 1rem;
             }
-            
-            .articles-grid {
-                grid-template-columns: 1fr;
-            }
 
             .hero h1 {
                 font-size: 1.5rem;
             }
 
-            .category-header h1 {
-                font-size: 1.75rem;
+            .article-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
             }
         }
     </style>
@@ -404,8 +381,7 @@
 
     <header class="hero">
         <div class="container">
-            <h1>Artikel Utama</h1>
-            <p>Kumpulan artikel utama seputar meme kampus</p>
+            <h1 id="articleTitle">Artikel</h1>
         </div>
     </header>
 
@@ -417,12 +393,7 @@
             Kembali ke Beranda
         </a>
         
-        <div class="category-header">
-            <h1>Artikel Utama</h1>
-            <p>Kumpulan artikel utama seputar fenomena meme kampus di Indonesia</p>
-        </div>
-        
-        <div class="articles-grid" id="articlesGrid">
+        <div class="article-container" id="articleContainer">
             <div class="loading">
                 <div class="spinner"></div>
             </div>
@@ -449,15 +420,17 @@
                 this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
             });
 
-            // Get current category from URL
-            const currentPage = window.location.pathname.split('/').pop();
-            let currentCategory = 'utama';
+            // Get article slug from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleSlug = urlParams.get('slug');
             
-            if (currentPage.includes('kampus')) currentCategory = 'kampus';
-            else if (currentPage.includes('opini')) currentCategory = 'opini';
-            
-            // Load articles data
-            function loadArticles() {
+            if (!articleSlug) {
+                showError('Artikel tidak ditemukan');
+                return;
+            }
+
+            // Load article data
+            function loadArticle() {
                 fetch('../data/artikel.json')
                     .then(response => {
                         if (!response.ok) {
@@ -466,121 +439,124 @@
                         return response.json();
                     })
                     .then(data => {
-                        renderArticles(data.artikel, currentCategory);
+                        const article = data.artikel.find(item => item.slug === articleSlug);
+                        if (article) {
+                            renderArticle(article);
+                        } else {
+                            showError('Artikel tidak ditemukan');
+                        }
                     })
                     .catch(error => {
-                        console.error('Error loading articles:', error);
-                        showError();
+                        console.error('Error loading article:', error);
+                        showError('Gagal memuat artikel');
                     });
             }
 
-            function renderArticles(articles, category) {
-                const articlesGrid = document.getElementById('articlesGrid');
+            function renderArticle(article) {
+                const articleContainer = document.getElementById('articleContainer');
+                const articleTitle = document.getElementById('articleTitle');
                 
-                if (!articles || articles.length === 0) {
-                    showEmptyState();
-                    return;
-                }
+                // Set article title in hero section
+                articleTitle.textContent = article.judul;
                 
-                // Filter articles by category
-                const filteredArticles = articles.filter(article => article.kategori === category);
+                // Format date
+                const formattedDate = formatDate(article.tanggal);
                 
-                if (filteredArticles.length === 0) {
-                    showEmptyState();
-                    return;
-                }
+                // Create article header
+                let articleHTML = `
+                    <div class="article-header">
+                        <h1>${article.judul}</h1>
+                        <div class="article-meta">
+                            <span>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z"/>
+                                </svg>
+                                ${article.penulis}
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                ${article.asalKampus}
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                ${formattedDate}
+                            </span>
+                        </div>
+                `;
                 
-                // Clear loading state
-                articlesGrid.innerHTML = '';
-                
-                // Render each article with staggered animation
-                filteredArticles.forEach((article, index) => {
-                    const excerpt = getExcerpt(article.konten);
-                    const formattedDate = formatDate(article.tanggal);
-                    
-                    const articleCard = document.createElement('article');
-                    articleCard.className = 'article-card';
-                    articleCard.style.animationDelay = `${index * 0.1}s`;
-                    articleCard.innerHTML = `
+                // Add featured image if exists
+                if (article.gambar) {
+                    articleHTML += `
                         <div class="article-image-container">
                             <img 
-                                src="../assets/artikel/${article.gambar || 'placeholder.jpg'}" 
+                                src="../assets/artikel/${article.gambar}" 
                                 alt="${article.judul}" 
                                 class="article-image"
                                 loading="lazy"
                             >
                         </div>
-                        <div class="article-content">
-                            <h3>${article.judul}</h3>
-                            <div class="article-meta">
-                                <span>
-                                    <svg viewBox="0 0 24 24" width="16" height="16">
-                                        <path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z"/>
-                                    </svg>
-                                    ${article.penulis}
-                                </span>
-                                <span>
-                                    <svg viewBox="0 0 24 24" width="16" height="16">
-                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                        <polyline points="9 22 9 12 15 12 15 22"/>
-                                    </svg>
-                                    ${article.asalKampus}
-                                </span>
-                                <span>
-                                    <svg viewBox="0 0 24 24" width="16" height="16">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6"/>
-                                        <line x1="8" y1="2" x2="8" y2="6"/>
-                                        <line x1="3" y1="10" x2="21" y2="10"/>
-                                    </svg>
-                                    ${formattedDate}
-                                </span>
-                            </div>
-                            <p class="article-excerpt">${excerpt}</p>
-                            <a href="../artikel.html?slug=${article.slug}" class="read-more">
-                                Baca Selengkapnya
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        </div>
                     `;
-                    articlesGrid.appendChild(articleCard);
+                }
+                
+                // Add article content
+                articleHTML += '<div class="article-content">';
+                
+                // Process each content item
+                article.konten.forEach(item => {
+                    switch(item.type) {
+                        case 'text':
+                            articleHTML += `<p>${item.value}</p>`;
+                            break;
+                        case 'bold':
+                            articleHTML += `<p><strong>${item.value}</strong></p>`;
+                            break;
+                        case 'quote':
+                            articleHTML += `<blockquote>${item.value}</blockquote>`;
+                            break;
+                        case 'list':
+                            articleHTML += '<ul>';
+                            item.value.forEach(listItem => {
+                                articleHTML += `<li>${listItem}</li>`;
+                            });
+                            articleHTML += '</ul>';
+                            break;
+                        case 'image':
+                            articleHTML += `
+                                <div class="article-image-container">
+                                    <img 
+                                        src="../assets/artikel/${item.value}" 
+                                        alt="${item.caption || 'Gambar artikel'}" 
+                                        class="article-image"
+                                        loading="lazy"
+                                    >
+                                    ${item.caption ? `<p class="article-image-caption">${item.caption}</p>` : ''}
+                                </div>
+                            `;
+                            break;
+                    }
                 });
+                
+                articleHTML += '</div></div>'; // Close content and header divs
+                
+                articleContainer.innerHTML = articleHTML;
             }
             
-            function showEmptyState() {
-                const articlesGrid = document.getElementById('articlesGrid');
-                articlesGrid.innerHTML = `
+            function showError(message) {
+                const articleContainer = document.getElementById('articleContainer');
+                articleContainer.innerHTML = `
                     <div class="error-state">
-                        <p>Tidak ada artikel dalam kategori ini.</p>
+                        <p>${message}</p>
                         <a href="../seputar-AKI.html" class="retry-button">Kembali ke Beranda</a>
                     </div>
                 `;
-            }
-            
-            function showError() {
-                const articlesGrid = document.getElementById('articlesGrid');
-                articlesGrid.innerHTML = `
-                    <div class="error-state">
-                        <p>Gagal memuat artikel. Silakan coba lagi nanti.</p>
-                        <button class="retry-button" onclick="window.location.reload()">Coba Lagi</button>
-                    </div>
-                `;
-            }
-            
-            function getExcerpt(contentArray) {
-                let text = '';
-                for (const item of contentArray) {
-                    if (item.type === 'text') {
-                        text += item.value + ' ';
-                    }
-                }
-                
-                // Limit to 25 words
-                const words = text.trim().split(' ');
-                const excerpt = words.slice(0, 25).join(' ');
-                return excerpt + (words.length > 25 ? '...' : '');
             }
             
             function formatDate(dateString) {
@@ -589,7 +565,7 @@
             }
 
             // Initial load
-            loadArticles();
+            loadArticle();
         });
     </script>
 </body>
