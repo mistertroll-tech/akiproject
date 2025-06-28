@@ -57,5 +57,17 @@
     { "label": "Instagram", "link": "https://www.instagram.com/unshitper17" },
     { "label": "Donate", "link": "https://saweria.co/unshitper" }
   ]
+},
+  {
+  "slug": "polkestama",
+  "namaKampus": "Politeknik Kesehatan Tasikmalaya",
+  "logo": "logo-polkestama.png",
+  "namaMeme": "Polkestama Shitpost",
+  "deskripsi": "akun ini didirikan 15 juni 2025 bertujuan untuk hiburan semata tanpa bermaksud untuk merendahkan institusi terkait",
+  "motto": "kampus kesehatan tapi pada ga sehat jir",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/polkestamashitpost" },
+    { "label": "Donate", "link": "https://saweria.co/polkestamameme" }
+  ]
 }
 ]
