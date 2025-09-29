@@ -69,5 +69,16 @@
     { "label": "Instagram", "link": "https://www.instagram.com/polkestamashitpost" },
     { "label": "Donate", "link": "https://saweria.co/polkestamameme" }
   ]
+},
+  {
+  "slug": "uenpeshitpost",
+  "namaKampus": "Universitas Negeri Padang",
+  "logo": "logo-uenpeshitpost.png",
+  "namaMeme": "Fakultas Meme Unp (FMU)",
+  "deskripsi": "Akun ini adalah akun meme unp yang bertujuan untuk menghibur anak terminal dan mahasiswa kampus lain, mendengarkan keluh kesah yang ada di lingkungan universitas negeri padang",
+  "motto": "hidup cuman sekali marilah ngemim kawan",
+  "tombol": [
+    { "label": "Instagram", "link": "https://www.instagram.com/aku.uenpe" }
+  ]
 }
 ]
